@@ -18,6 +18,7 @@ The app is a smart office app which Immersive staff can use to see what song is 
 
 - You should use design tokens for things like colours, spacing, font styles etc. but how you implement them is up to you
 - Each section should be displayed within a "card" and have consistent titles
+- Consider how the app will work across different screen sizes
 - Accessibility will be a core part of your job at Immersive so this should be factored in where possible although we are aware that you don't have much time so feel free to use a light touch as you will have the opportunity to discuss accessibility during the face to face interview.
 - Lights
   - Each room has one or many lights, these can be `on`, `off` or `unreachable`, if they are unreachable then the button should be disabled and you cannot toggle their on/off state. If it is reachable, it's on/off state should be reflected in the UI
