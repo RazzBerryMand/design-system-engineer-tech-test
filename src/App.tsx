@@ -12,7 +12,7 @@ import { useDummyData } from "./hooks/useDummyData";
 import "./App.css";
 
 export function App() {
-  const { music, rooms, alert, toggleLight } = useDummyData();
+  const { music, rooms, alert } = useDummyData();
 
   const [areGatesOpen, setAreGatesOpen] = useState(false);
   const [latchTime, setLatchTime] = useState("");
