@@ -4,6 +4,8 @@ This is a working but unstyled application, the goal is for you to style it usin
 
 You are not expected to complete every requirement (but do try!) - we are not looking for perfection - the goal of the test is for us to get a feel for your approach and technical abilities and to help lead the conversation during the your follow-up interview.
 
+If successful you will not be working with an off-the-shelf component library as in this test - you will be maintaining an in-house library designed to be used solely on our platform(s) and by our developers so we are more interested in your approach to applying (and enforcing) styles at the system level, although this isd a React app, consider how styles might be used in other environments.
+
 We're not looking for a great looking app (but showing off your design skills would be a plus), we're more interested in seeing **how you approach creating a component-based architecture that enables developers to work at pace within the confines of a design system**.
 
 You do not need to write tests but may be quizzed on how you would approach testing a design system later
@@ -17,8 +19,8 @@ The app is a smart office app which Immersive staff can use to see what song is 
 ### Requirements
 
 - You should use design tokens for things like colours, spacing, font styles etc. but how you implement them is up to you
-- Each section should be displayed within a "card" and have consistent titles
-- Consider how the app will work across different screen sizes
+- Each section should be displayed within a "card" and have consistent title styles, but bear in mind that in a real scenario card title may not all use the same semantic element
+- Consider how the app and components will will adapt different screen sizes
 - Accessibility will be a core part of your job at Immersive so this should be factored in where possible although we are aware that you don't have much time so feel free to use a light touch as you will have the opportunity to discuss accessibility during the face to face interview.
 - Lights
   - Each room has one or many lights, these can be `on`, `off` or `unreachable`, if they are unreachable then the button should be disabled and you cannot toggle their on/off state. If it is reachable, it's on/off state should be reflected in the UI
