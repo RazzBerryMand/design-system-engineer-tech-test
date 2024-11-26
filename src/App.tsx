@@ -103,7 +103,11 @@ export function App() {
                     <p>Brightness: {light.state.brightness}%</p>
                     <button
                       disabled={!light.state.reachable}
-                      onClick={() => doAction("toggleLight")}
+                      onClick={() =>
+                        doAction(
+                          `turn ${light.name} ${light.state.on ? "off" : "on"}`
+                        )
+                      }
                     >
                       {light.state.on ? "On" : "Off"}
                     </button>
