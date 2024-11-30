@@ -1,4 +1,13 @@
-import { Heading, Text, Image, Badge, Box, Group } from "@chakra-ui/react";
+import {
+  Heading,
+  Text,
+  Image,
+  Badge,
+  Box,
+  Group,
+  List,
+  Flex,
+} from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/alert";
 import { useState } from "react";
@@ -120,38 +129,45 @@ export function App() {
 
       <div>
         <Heading as="h2">Lights</Heading>
-        <ul>
-          {rooms.map((room) => (
-            <li key={room.name}>
-              <Heading as="h3">{room.name}</Heading>
-              <ul>
-                {room.lights.map((light) => (
-                  <li key={light.id}>
-                    <Heading as="h4">{light.name}</Heading>
+        <List.Root variant="plain">
+          <Flex width="100%" overflowX="auto" wrap="nowrap" gap="4">
+            {rooms.map((room) => (
+              <List.Item key={room.name}>
+                <Flex direction="column" gap="4">
+                  <Heading as="h3">{room.name}</Heading>
 
-                    <Box display={{ base: "none" }}>
-                      <Text>
-                        Reachable?: {light.state.reachable ? "Yes" : "No"}
-                      </Text>
-                      <Text>Brightness: {light.state.brightness}%</Text>
-                    </Box>
+                  <List.Root variant="plain">
+                    {room.lights.map((light) => (
+                      <List.Item key={light.id}>
+                        <Box display={{ base: "none" }}>
+                          <Text>
+                            Reachable?: {light.state.reachable ? "Yes" : "No"}
+                          </Text>
+                          <Text>Brightness: {light.state.brightness}%</Text>
+                        </Box>
 
-                    <Button
-                      disabled={!light.state.reachable}
-                      onClick={() =>
-                        doAction(
-                          `turn ${light.name} ${light.state.on ? "off" : "on"}`
-                        )
-                      }
-                    >
-                      {light.state.on ? "On" : "Off"}
-                    </Button>
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ))}
-        </ul>
+                        <Button
+                          disabled={!light.state.reachable}
+                          onClick={() =>
+                            doAction(
+                              `turn ${light.name} ${
+                                light.state.on ? "off" : "on"
+                              }`
+                            )
+                          }
+                        >
+                          <Heading as="h4">{light.name}</Heading>
+                          {/* {light.state.on ? "On" : "Off"} */}
+                          {/* TODO: icon to show on or off */}
+                        </Button>
+                      </List.Item>
+                    ))}
+                  </List.Root>
+                </Flex>
+              </List.Item>
+            ))}
+          </Flex>
+        </List.Root>
       </div>
     </div>
   );
