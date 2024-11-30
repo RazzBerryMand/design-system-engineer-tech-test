@@ -11,6 +11,8 @@ import {
   Card,
   createListCollection,
   VisuallyHidden,
+  Spinner,
+  Center,
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/alert";
@@ -67,22 +69,28 @@ export function App() {
   });
 
   return (
-    <Container>
+    <Container p="4">
       <VisuallyHidden>
         <Heading as="h1">Immersive smart office</Heading>
       </VisuallyHidden>
 
-      {alert && (
-        <Alert
-          status={alert?.variant}
-          title={alert?.title}
-          icon={renderAlertIcon(alert?.variant)}
-        >
-          <Text>{alert?.description}</Text>
-        </Alert>
-      )}
-
       <Stack gap="4">
+        <Card.Root>
+          {alert ? (
+            <Alert
+              status={alert?.variant}
+              title={alert?.title}
+              icon={renderAlertIcon(alert?.variant)}
+            >
+              <Text>{alert?.description}</Text>
+            </Alert>
+          ) : (
+            <Center h="full" p="4">
+              <Spinner size="xl" />
+            </Center>
+          )}
+        </Card.Root>
+
         <Card.Root>
           <Image
             src={music.currentTrack.albumArt}
