@@ -3,7 +3,6 @@ import {
   Text,
   Image,
   Badge,
-  Box,
   Group,
   List,
   Flex,
@@ -11,6 +10,7 @@ import {
   Container,
   Card,
   createListCollection,
+  VisuallyHidden,
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/alert";
@@ -68,9 +68,9 @@ export function App() {
 
   return (
     <Container>
-      <Box display={{ base: "none" }}>
+      <VisuallyHidden>
         <Heading as="h1">Immersive smart office</Heading>
-      </Box>
+      </VisuallyHidden>
 
       {alert && (
         <Alert
@@ -172,13 +172,13 @@ export function App() {
                       <List.Root variant="plain">
                         {room.lights.map((light) => (
                           <List.Item key={light.id}>
-                            <Box display={{ base: "none" }}>
+                            <VisuallyHidden>
                               <Text>
                                 Reachable?:{" "}
                                 {light.state.reachable ? "Yes" : "No"}
                               </Text>
                               <Text>Brightness: {light.state.brightness}%</Text>
-                            </Box>
+                            </VisuallyHidden>
 
                             <Button
                               disabled={!light.state.reachable}
