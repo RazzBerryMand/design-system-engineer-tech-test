@@ -26,13 +26,16 @@ import {
 } from "@/components/ui/select";
 import { useState } from "react";
 import {
-  IoPlayOutline,
-  IoPauseOutline,
-  IoPlayBackOutline,
-  IoPlayForwardOutline,
-  IoInformationOutline,
-  IoWarningOutline,
+  IoPlaySharp,
+  IoPauseSharp,
+  IoPlaySkipBackSharp,
+  IoPlaySkipForwardSharp,
+  IoInformation,
+  IoWarning,
+  IoAlertCircle,
   IoAlertCircleOutline,
+  IoBulbOutline,
+  IoBulb,
 } from "react-icons/io5";
 import { useDummyData } from "./hooks/useDummyData";
 import "./App.css";
@@ -52,11 +55,11 @@ export function App() {
   const renderAlertIcon = (variant: string) => {
     switch (variant) {
       case "info":
-        return <IoInformationOutline />;
+        return <IoInformation />;
       case "warning":
-        return <IoWarningOutline />;
+        return <IoWarning />;
       case "error":
-        return <IoAlertCircleOutline />;
+        return <IoAlertCircle />;
       default:
         return undefined;
     }
@@ -113,13 +116,13 @@ export function App() {
           <Card.Footer gap="2">
             <Group w="full" grow>
               <Button onClick={() => doAction("prevTrack")}>
-                <IoPlayBackOutline />
+                <IoPlaySkipBackSharp />
               </Button>
               <Button onClick={() => doAction("togglePlayState")}>
-                {isPlaying ? <IoPauseOutline /> : <IoPlayOutline />}
+                {isPlaying ? <IoPauseSharp /> : <IoPlaySharp />}
               </Button>
               <Button onClick={() => doAction("nextTrack")}>
-                <IoPlayForwardOutline />
+                <IoPlaySkipForwardSharp />
               </Button>
             </Group>
           </Card.Footer>
@@ -203,8 +206,17 @@ export function App() {
                               }
                             >
                               <Heading as="h4">{light.name}</Heading>
-                              {/* {light.state.on ? "On" : "Off"} */}
-                              {/* TODO: icon to show on or off */}
+                              {light.state.reachable && light.state.on && (
+                                <IoBulb />
+                              )}
+
+                              {light.state.reachable && !light.state.on && (
+                                <IoBulbOutline />
+                              )}
+
+                              {!light.state.reachable && (
+                                <IoAlertCircleOutline />
+                              )}
                             </Button>
                           </List.Item>
                         ))}
