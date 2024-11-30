@@ -9,6 +9,7 @@ import {
   Flex,
   Stack,
   Container,
+  Card,
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/alert";
@@ -70,106 +71,126 @@ export function App() {
         </Alert>
       )}
 
-      <div>
-        <Box display={{ base: "none" }}>
-          <Heading as="h2">Music</Heading>
-          <Text>{isPlaying ? "Now playing" : "Up next"}:</Text>
-        </Box>
+      <Stack gap="4">
+        <Card.Root>
+          <Image
+            src={music.currentTrack.albumArt}
+            alt={`Album art for ${music.currentTrack.album}`}
+          />
 
-        <Image
-          src={music.currentTrack.albumArt}
-          alt={`Album art for ${music.currentTrack.album}`}
-        />
+          <Card.Body gap="2">
+            <Card.Title>Music</Card.Title>
+            <Card.Description>
+              <Text>{isPlaying ? "Now playing" : "Up next"}:</Text>
+              <Stack>
+                <Text textStyle="lg">{music.currentTrack.title}</Text>
+                <Text textStyle="md">by {music.currentTrack.artist}</Text>
+                <Text textStyle="sm">from {music.currentTrack.album}</Text>
+              </Stack>
+            </Card.Description>
+          </Card.Body>
 
-        <Stack>
-          <Text textStyle="lg">{music.currentTrack.title}</Text>
-          <Text textStyle="md">by {music.currentTrack.artist}</Text>
-          <Text textStyle="sm">from {music.currentTrack.album}</Text>
-        </Stack>
+          <Card.Footer gap="2">
+            <Group>
+              <Button onClick={() => doAction("prevTrack")}>
+                <IoPlayBackOutline />
+              </Button>
+              <Button onClick={() => doAction("togglePlayState")}>
+                {isPlaying ? <IoPauseOutline /> : <IoPlayOutline />}
+              </Button>
+              <Button onClick={() => doAction("nextTrack")}>
+                <IoPlayForwardOutline />
+              </Button>
+            </Group>
+          </Card.Footer>
+        </Card.Root>
 
-        <Group>
-          <Button onClick={() => doAction("prevTrack")}>
-            <IoPlayBackOutline />
-          </Button>
-          <Button onClick={() => doAction("togglePlayState")}>
-            {isPlaying ? <IoPauseOutline /> : <IoPlayOutline />}
-          </Button>
-          <Button onClick={() => doAction("nextTrack")}>
-            <IoPlayForwardOutline />
-          </Button>
-        </Group>
-      </div>
+        <Card.Root>
+          <Card.Header gap="2">
+            <Flex justifyContent="space-between">
+              <Card.Title>Gates</Card.Title>
+              <Card.Description>
+                <Badge
+                  colorPalette={areGatesOpen ? "green" : "red"}
+                  variant="solid"
+                  size="sm"
+                >
+                  {areGatesOpen ? "Open" : "Closed"}
+                </Badge>
+              </Card.Description>
+            </Flex>
+          </Card.Header>
 
-      <div>
-        <Heading as="h2">Gates</Heading>
+          <Card.Body gap="2">
+            <label htmlFor="latchTime">Latch</label>
+            <select
+              id="latchTime"
+              value={latchTime}
+              onChange={handleLatchChange}
+            >
+              <option value="">Select time</option>
+              <option value="10">10 mins</option>
+              <option value="20">20 mins</option>
+              <option value="60">1 hour</option>
+            </select>
+          </Card.Body>
 
-        {areGatesOpen ? (
-          <Badge colorPalette="green" variant="solid" size="sm">
-            Open
-          </Badge>
-        ) : (
-          <Badge colorPalette="red" variant="solid" size="sm">
-            Closed
-          </Badge>
-        )}
+          <Card.Footer gap="2">
+            <Button onClick={() => setAreGatesOpen(!areGatesOpen)}>
+              Open Gates
+            </Button>
+          </Card.Footer>
+        </Card.Root>
 
-        <Button onClick={() => setAreGatesOpen(!areGatesOpen)}>
-          Open Gates
-        </Button>
+        <Card.Root>
+          <Card.Body gap="2">
+            <Card.Title>Lights</Card.Title>
+          </Card.Body>
 
-        <div>
-          <label htmlFor="latchTime">Latch open for:</label>
-          <select id="latchTime" value={latchTime} onChange={handleLatchChange}>
-            <option value="">Select time</option>
-            <option value="10">10 mins</option>
-            <option value="20">20 mins</option>
-            <option value="60">1 hour</option>
-          </select>
-        </div>
-      </div>
+          <Card.Footer gap="2">
+            <List.Root variant="plain">
+              <Flex width="100%" overflowX="auto" wrap="nowrap" gap="4">
+                {rooms.map((room) => (
+                  <List.Item key={room.name}>
+                    <Flex direction="column" gap="4">
+                      <Heading as="h3">{room.name}</Heading>
 
-      <div>
-        <Heading as="h2">Lights</Heading>
-        <List.Root variant="plain">
-          <Flex width="100%" overflowX="auto" wrap="nowrap" gap="4">
-            {rooms.map((room) => (
-              <List.Item key={room.name}>
-                <Flex direction="column" gap="4">
-                  <Heading as="h3">{room.name}</Heading>
+                      <List.Root variant="plain">
+                        {room.lights.map((light) => (
+                          <List.Item key={light.id}>
+                            <Box display={{ base: "none" }}>
+                              <Text>
+                                Reachable?:{" "}
+                                {light.state.reachable ? "Yes" : "No"}
+                              </Text>
+                              <Text>Brightness: {light.state.brightness}%</Text>
+                            </Box>
 
-                  <List.Root variant="plain">
-                    {room.lights.map((light) => (
-                      <List.Item key={light.id}>
-                        <Box display={{ base: "none" }}>
-                          <Text>
-                            Reachable?: {light.state.reachable ? "Yes" : "No"}
-                          </Text>
-                          <Text>Brightness: {light.state.brightness}%</Text>
-                        </Box>
-
-                        <Button
-                          disabled={!light.state.reachable}
-                          onClick={() =>
-                            doAction(
-                              `turn ${light.name} ${
-                                light.state.on ? "off" : "on"
-                              }`
-                            )
-                          }
-                        >
-                          <Heading as="h4">{light.name}</Heading>
-                          {/* {light.state.on ? "On" : "Off"} */}
-                          {/* TODO: icon to show on or off */}
-                        </Button>
-                      </List.Item>
-                    ))}
-                  </List.Root>
-                </Flex>
-              </List.Item>
-            ))}
-          </Flex>
-        </List.Root>
-      </div>
+                            <Button
+                              disabled={!light.state.reachable}
+                              onClick={() =>
+                                doAction(
+                                  `turn ${light.name} ${
+                                    light.state.on ? "off" : "on"
+                                  }`
+                                )
+                              }
+                            >
+                              <Heading as="h4">{light.name}</Heading>
+                              {/* {light.state.on ? "On" : "Off"} */}
+                              {/* TODO: icon to show on or off */}
+                            </Button>
+                          </List.Item>
+                        ))}
+                      </List.Root>
+                    </Flex>
+                  </List.Item>
+                ))}
+              </Flex>
+            </List.Root>
+          </Card.Footer>
+        </Card.Root>
+      </Stack>
     </Container>
   );
 }
