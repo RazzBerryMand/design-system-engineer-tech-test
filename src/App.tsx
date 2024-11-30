@@ -1,4 +1,4 @@
-import { Heading, Text } from "@chakra-ui/react";
+import { Heading, Text, Image } from "@chakra-ui/react";
 import { useState } from "react";
 import {
   IoPlayOutline,
@@ -46,7 +46,7 @@ export function App() {
         <Heading as="h2">Music</Heading>
         <Text>{isPlaying ? "Now playing" : "Up next"}:</Text>
         <div>
-          <img src={music.currentTrack.albumArt} alt="" />
+          <Image src={music.currentTrack.albumArt} alt={`Album art for ${music.currentTrack.album}`} />
           <div>
             <Text textStyle="lg">{music.currentTrack.title}</Text>
             <Text textStyle="md">by {music.currentTrack.artist}</Text>
