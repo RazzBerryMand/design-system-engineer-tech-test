@@ -10,9 +10,18 @@ import {
   Stack,
   Container,
   Card,
+  createListCollection,
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/alert";
+import {
+  SelectContent,
+  SelectItem,
+  SelectLabel,
+  SelectRoot,
+  SelectTrigger,
+  SelectValueText,
+} from "@/components/ui/select";
 import { useState } from "react";
 import {
   IoPlayOutline,
@@ -27,17 +36,13 @@ import { useDummyData } from "./hooks/useDummyData";
 import "./App.css";
 
 export function App() {
-  const { music, rooms, alert } = useDummyData();
+  const { music, rooms, alert, gates } = useDummyData();
 
   const [areGatesOpen, setAreGatesOpen] = useState(false);
-  const [latchTime, setLatchTime] = useState("");
+  const [latchTime, setLatchTime] = useState<string[]>([]);
 
   function doAction(action: string) {
     console.log(action);
-  }
-
-  function handleLatchChange(event: React.ChangeEvent<HTMLSelectElement>) {
-    setLatchTime(event.target.value);
   }
 
   const isPlaying = music.playState === "playing";
@@ -54,6 +59,12 @@ export function App() {
         return undefined;
     }
   };
+
+  const mainGateLatchTimes = gates[0].latchTimes;
+
+  const latchTimes = createListCollection({
+    items: mainGateLatchTimes,
+  });
 
   return (
     <Container>
@@ -80,14 +91,13 @@ export function App() {
 
           <Card.Body gap="2">
             <Card.Title>Music</Card.Title>
-            <Card.Description>
-              <Text>{isPlaying ? "Now playing" : "Up next"}:</Text>
-              <Stack>
-                <Text textStyle="lg">{music.currentTrack.title}</Text>
-                <Text textStyle="md">by {music.currentTrack.artist}</Text>
-                <Text textStyle="sm">from {music.currentTrack.album}</Text>
-              </Stack>
-            </Card.Description>
+            <Text>{isPlaying ? "Now playing" : "Up next"}:</Text>
+
+            <Stack>
+              <Text textStyle="lg">{music.currentTrack.title}</Text>
+              <Text textStyle="md">by {music.currentTrack.artist}</Text>
+              <Text textStyle="sm">from {music.currentTrack.album}</Text>
+            </Stack>
           </Card.Body>
 
           <Card.Footer gap="2">
@@ -109,30 +119,34 @@ export function App() {
           <Card.Header gap="2">
             <Flex justifyContent="space-between">
               <Card.Title>Gates</Card.Title>
-              <Card.Description>
-                <Badge
-                  colorPalette={areGatesOpen ? "green" : "red"}
-                  variant="solid"
-                  size="sm"
-                >
-                  {areGatesOpen ? "Open" : "Closed"}
-                </Badge>
-              </Card.Description>
+              <Badge
+                colorPalette={areGatesOpen ? "green" : "red"}
+                variant="solid"
+                size="sm"
+              >
+                {areGatesOpen ? "Open" : "Closed"}
+              </Badge>
             </Flex>
           </Card.Header>
 
           <Card.Body gap="2">
-            <label htmlFor="latchTime">Latch</label>
-            <select
-              id="latchTime"
+            <SelectRoot
+              collection={latchTimes}
               value={latchTime}
-              onChange={handleLatchChange}
+              onValueChange={(e) => setLatchTime(e.value)}
             >
-              <option value="">Select time</option>
-              <option value="10">10 mins</option>
-              <option value="20">20 mins</option>
-              <option value="60">1 hour</option>
-            </select>
+              <SelectLabel>Select latch time</SelectLabel>
+              <SelectTrigger>
+                <SelectValueText placeholder="Latch" />
+              </SelectTrigger>
+              <SelectContent>
+                {latchTimes.items.map((duration) => (
+                  <SelectItem item={duration} key={duration.value}>
+                    {duration.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </SelectRoot>
           </Card.Body>
 
           <Card.Footer gap="2">

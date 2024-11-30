@@ -3,6 +3,7 @@ import {
   dummyMusicData,
   generateDummyAlertData,
   generateDummyRoomData,
+  generateDummyGateData,
 } from "../dummyData";
 
 export interface ITrack {
@@ -31,6 +32,16 @@ export interface IRoom {
   lights: ILight[];
 }
 
+export interface ILatchTime {
+  label: string;
+  value: string;
+}
+
+export interface IGate {
+  name: string;
+  latchTimes: ILatchTime[];
+}
+
 export interface IAlert {
   variant: "info" | "warning" | "error";
   title: string;
@@ -42,6 +53,7 @@ export interface IUseDummyData {
   music: IMusicData;
   rooms: IRoom[];
   alert: IAlert | null;
+  gates: IGate[];
 }
 
 function randomNumberUpTo(max: number): number {
@@ -63,6 +75,7 @@ export function useDummyData(
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [rooms, setRooms] = useState(generateDummyRoomData());
   const [alert, setAlert] = useState<IAlert | null>(null);
+  const [gates, setGates] = useState(generateDummyGateData());
 
   function chooseRandomTrack() {
     return Math.floor(Math.random() * dummyMusicData.tracks.length);
@@ -73,6 +86,7 @@ export function useDummyData(
         setCurrentTrackIndex(chooseRandomTrack());
         setRooms([...generateDummyRoomData()]);
         setAlert(generateDummyAlertData());
+        setGates([...generateDummyGateData()]);
       }, intervalDuration);
       return () => clearInterval(interval);
     }
@@ -83,5 +97,5 @@ export function useDummyData(
     currentTrack: dummyMusicData.tracks[currentTrackIndex],
   };
 
-  return { music, rooms, alert };
+  return { music, rooms, alert, gates };
 }

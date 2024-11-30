@@ -1,10 +1,4 @@
-/**
- * This file contains dummy data for use in the app, you shouldn't need to edit
- * this file but you are free to if you like, however bear in ind that the data
- * is designed to provide you with data variations for use in UI states
- */
-
-import { IAlert, ILight, IMusicData, IRoom } from "./hooks/useDummyData";
+import { IAlert, ILight, IMusicData, IRoom, IGate } from "./hooks/useDummyData";
 
 interface IDummyMusicData {
   playStates: IMusicData["playState"][];
@@ -164,6 +158,19 @@ export function generateDummyRoomData(): IRoom[] {
           name: "Ceiling light",
           state: getRandomLightState(),
         },
+      ],
+    },
+  ];
+}
+
+export function generateDummyGateData(): IGate[] {
+  return [
+    {
+      name: "Main Gate",
+      latchTimes: [
+        { label: "10 mins", value: "10" },
+        { label: "20 mins", value: "20" },
+        { label: "1 hour", value: "60" },
       ],
     },
   ];
