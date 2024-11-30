@@ -143,25 +143,32 @@ export function App() {
           </Card.Header>
 
           <Card.Body gap="2">
-            <SelectRoot
-              collection={latchTimes}
-              value={latchTime}
-              onValueChange={(e) => setLatchTime(e.value)}
-            >
-              <VisuallyHidden>
-                <SelectLabel>Select latch time</SelectLabel>
-              </VisuallyHidden>
-              <SelectTrigger>
-                <SelectValueText placeholder="Latch" />
-              </SelectTrigger>
-              <SelectContent>
-                {latchTimes.items.map((duration) => (
-                  <SelectItem item={duration} key={duration.value}>
-                    {duration.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </SelectRoot>
+            {areGatesOpen ? (
+              <Alert
+                status="error"
+                title="Please close the gate when not in use"
+              />
+            ) : (
+              <SelectRoot
+                collection={latchTimes}
+                value={latchTime}
+                onValueChange={(e) => setLatchTime(e.value)}
+              >
+                <VisuallyHidden>
+                  <SelectLabel>Select latch time</SelectLabel>
+                </VisuallyHidden>
+                <SelectTrigger>
+                  <SelectValueText placeholder="Latch" />
+                </SelectTrigger>
+                <SelectContent>
+                  {latchTimes.items.map((duration) => (
+                    <SelectItem item={duration} key={duration.value}>
+                      {duration.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </SelectRoot>
+            )}
           </Card.Body>
 
           <Card.Footer gap="2">
@@ -185,41 +192,46 @@ export function App() {
                       <Heading as="h3">{room.name}</Heading>
 
                       <List.Root variant="plain">
-                        {room.lights.map((light) => (
-                          <List.Item key={light.id}>
-                            <VisuallyHidden>
-                              <Text>
-                                Reachable?:{" "}
-                                {light.state.reachable ? "Yes" : "No"}
-                              </Text>
-                              <Text>Brightness: {light.state.brightness}%</Text>
-                            </VisuallyHidden>
+                        <Flex wrap="nowrap" direction="column" gap="4">
+                          {room.lights.map((light) => (
+                            <List.Item key={light.id}>
+                              <VisuallyHidden>
+                                <Text>
+                                  Reachable?:{" "}
+                                  {light.state.reachable ? "Yes" : "No"}
+                                </Text>
+                                <Text>
+                                  Brightness: {light.state.brightness}%
+                                </Text>
+                              </VisuallyHidden>
 
-                            <Button
-                              disabled={!light.state.reachable}
-                              onClick={() =>
-                                doAction(
-                                  `turn ${light.name} ${
-                                    light.state.on ? "off" : "on"
-                                  }`
-                                )
-                              }
-                            >
-                              <Heading as="h4">{light.name}</Heading>
-                              {light.state.reachable && light.state.on && (
-                                <IoBulb />
-                              )}
+                              <Button
+                                variant="outline"
+                                disabled={!light.state.reachable}
+                                onClick={() =>
+                                  doAction(
+                                    `turn ${light.name} ${
+                                      light.state.on ? "off" : "on"
+                                    }`
+                                  )
+                                }
+                              >
+                                <Heading as="h4">{light.name}</Heading>
+                                {light.state.reachable && light.state.on && (
+                                  <IoBulb />
+                                )}
 
-                              {light.state.reachable && !light.state.on && (
-                                <IoBulbOutline />
-                              )}
+                                {light.state.reachable && !light.state.on && (
+                                  <IoBulbOutline />
+                                )}
 
-                              {!light.state.reachable && (
-                                <IoAlertCircleOutline />
-                              )}
-                            </Button>
-                          </List.Item>
-                        ))}
+                                {!light.state.reachable && (
+                                  <IoAlertCircleOutline />
+                                )}
+                              </Button>
+                            </List.Item>
+                          ))}
+                        </Flex>
                       </List.Root>
                     </Flex>
                   </List.Item>
