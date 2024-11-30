@@ -1,5 +1,6 @@
 import { Heading, Text, Image, Badge, Box } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
+import { Alert } from "@/components/ui/alert";
 import { useState } from "react";
 import {
   IoPlayOutline,
@@ -7,8 +8,8 @@ import {
   IoPlayBackOutline,
   IoPlayForwardOutline,
   IoInformationOutline,
-  // IoWarningOutline,
-  // IoAlertCircleOutline,
+  IoWarningOutline,
+  IoAlertCircleOutline,
 } from "react-icons/io5";
 import { useDummyData } from "./hooks/useDummyData";
 import "./App.css";
@@ -29,22 +30,34 @@ export function App() {
 
   const isPlaying = music.playState === "playing";
 
+  const renderAlertIcon = (variant: string) => {
+    switch (variant) {
+      case "info":
+        return <IoInformationOutline />;
+      case "warning":
+        return <IoWarningOutline />;
+      case "error":
+        return <IoAlertCircleOutline />;
+      default:
+        return undefined;
+    }
+  };
+
   return (
     <div>
       <Box display={{ base: "none" }}>
         <Heading as="h1">Immersive smart office</Heading>
       </Box>
 
-      {alert ? (
-        <div className={alert.variant}>
-          <div>
-            <IoInformationOutline />
-            {/* or IoWarningOutline or IoAlertCircleOutline based on alert.variant */}
-            <Heading as="h2">{alert.title}</Heading>
-          </div>
-          <Text>{alert.description}</Text>
-        </div>
-      ) : null}
+      {alert && (
+        <Alert
+          status={alert?.variant}
+          title={alert?.title}
+          icon={renderAlertIcon(alert?.variant)}
+        >
+          <Text>{alert?.description}</Text>
+        </Alert>
+      )}
 
       <div>
         <Box display={{ base: "none" }}>
