@@ -7,6 +7,8 @@ import {
   Group,
   List,
   Flex,
+  Stack,
+  Container,
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/alert";
@@ -53,7 +55,7 @@ export function App() {
   };
 
   return (
-    <div>
+    <Container>
       <Box display={{ base: "none" }}>
         <Heading as="h1">Immersive smart office</Heading>
       </Box>
@@ -74,17 +76,16 @@ export function App() {
           <Text>{isPlaying ? "Now playing" : "Up next"}:</Text>
         </Box>
 
-        <div>
-          <Image
-            src={music.currentTrack.albumArt}
-            alt={`Album art for ${music.currentTrack.album}`}
-          />
-          <div>
-            <Text textStyle="lg">{music.currentTrack.title}</Text>
-            <Text textStyle="md">by {music.currentTrack.artist}</Text>
-            <Text textStyle="sm">from {music.currentTrack.album}</Text>
-          </div>
-        </div>
+        <Image
+          src={music.currentTrack.albumArt}
+          alt={`Album art for ${music.currentTrack.album}`}
+        />
+
+        <Stack>
+          <Text textStyle="lg">{music.currentTrack.title}</Text>
+          <Text textStyle="md">by {music.currentTrack.artist}</Text>
+          <Text textStyle="sm">from {music.currentTrack.album}</Text>
+        </Stack>
 
         <Group>
           <Button onClick={() => doAction("prevTrack")}>
@@ -169,6 +170,6 @@ export function App() {
           </Flex>
         </List.Root>
       </div>
-    </div>
+    </Container>
   );
 }
