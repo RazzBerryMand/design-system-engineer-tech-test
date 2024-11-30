@@ -69,7 +69,7 @@ export function App() {
   });
 
   return (
-    <Container p="4">
+    <Container p="4" maxW="xl">
       <VisuallyHidden>
         <Heading as="h1">Immersive smart office</Heading>
       </VisuallyHidden>
@@ -111,7 +111,7 @@ export function App() {
           </Card.Body>
 
           <Card.Footer gap="2">
-            <Group>
+            <Group w="full" grow>
               <Button onClick={() => doAction("prevTrack")}>
                 <IoPlayBackOutline />
               </Button>
@@ -162,8 +162,8 @@ export function App() {
           </Card.Body>
 
           <Card.Footer gap="2">
-            <Button onClick={() => setAreGatesOpen(!areGatesOpen)}>
-              Open Gates
+            <Button w="full" onClick={() => setAreGatesOpen(!areGatesOpen)}>
+              {areGatesOpen ? "Close" : "Open"}
             </Button>
           </Card.Footer>
         </Card.Root>
