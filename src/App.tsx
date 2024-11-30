@@ -90,8 +90,10 @@ export function App() {
           />
 
           <Card.Body gap="2">
-            <Card.Title>Music</Card.Title>
-            <Text>{isPlaying ? "Now playing" : "Up next"}:</Text>
+            <VisuallyHidden>
+              <Card.Title>Music</Card.Title>
+              <Text>{isPlaying ? "Now playing" : "Up next"}:</Text>
+            </VisuallyHidden>
 
             <Stack>
               <Text textStyle="lg">{music.currentTrack.title}</Text>
@@ -135,7 +137,9 @@ export function App() {
               value={latchTime}
               onValueChange={(e) => setLatchTime(e.value)}
             >
-              <SelectLabel>Select latch time</SelectLabel>
+              <VisuallyHidden>
+                <SelectLabel>Select latch time</SelectLabel>
+              </VisuallyHidden>
               <SelectTrigger>
                 <SelectValueText placeholder="Latch" />
               </SelectTrigger>
