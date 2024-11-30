@@ -1,4 +1,4 @@
-import { Heading, Text, Image } from "@chakra-ui/react";
+import { Heading, Text, Image, Badge } from "@chakra-ui/react";
 import { useState } from "react";
 import {
   IoPlayOutline,
@@ -46,7 +46,10 @@ export function App() {
         <Heading as="h2">Music</Heading>
         <Text>{isPlaying ? "Now playing" : "Up next"}:</Text>
         <div>
-          <Image src={music.currentTrack.albumArt} alt={`Album art for ${music.currentTrack.album}`} />
+          <Image
+            src={music.currentTrack.albumArt}
+            alt={`Album art for ${music.currentTrack.album}`}
+          />
           <div>
             <Text textStyle="lg">{music.currentTrack.title}</Text>
             <Text textStyle="md">by {music.currentTrack.artist}</Text>
@@ -70,11 +73,17 @@ export function App() {
 
       <div>
         <Heading as="h2">Gates</Heading>
+
         {areGatesOpen ? (
-          <span>Gates are open</span>
+          <Badge colorPalette="green" variant="solid" size="sm">
+            Open
+          </Badge>
         ) : (
-          <span>Gates are closed</span>
+          <Badge colorPalette="red" variant="solid" size="sm">
+            Closed
+          </Badge>
         )}
+
         <button onClick={() => setAreGatesOpen(!areGatesOpen)}>
           Open Gates
         </button>
@@ -101,7 +110,9 @@ export function App() {
                 {room.lights.map((light) => (
                   <li key={light.id}>
                     <Heading as="h4">{light.name}</Heading>
-                    <Text>Reachable?: {light.state.reachable ? "Yes" : "No"}</Text>
+                    <Text>
+                      Reachable?: {light.state.reachable ? "Yes" : "No"}
+                    </Text>
                     <Text>Brightness: {light.state.brightness}%</Text>
                     <button
                       disabled={!light.state.reachable}
