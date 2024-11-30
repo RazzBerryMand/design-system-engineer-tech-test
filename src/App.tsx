@@ -38,7 +38,6 @@ import {
   IoBulb,
 } from "react-icons/io5";
 import { useDummyData } from "./hooks/useDummyData";
-import "./App.css";
 
 export function App() {
   const { music, rooms, alert, gates } = useDummyData();
