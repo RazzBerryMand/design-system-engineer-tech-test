@@ -70,8 +70,6 @@ export function App() {
         </div>
       </div>
 
-      <hr />
-
       <div>
         <Heading as="h2">Gates</Heading>
 
@@ -98,8 +96,6 @@ export function App() {
           </select>
         </div>
       </div>
-
-      <hr />
 
       <div>
         <Heading as="h2">Lights</Heading>
