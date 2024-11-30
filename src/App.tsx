@@ -1,5 +1,5 @@
-import { Heading, Text, Image, Badge } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button"
+import { Heading, Text, Image, Badge, Box } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import {
   IoPlayOutline,
@@ -31,7 +31,9 @@ export function App() {
 
   return (
     <div>
-      <Heading as="h1">Immersive smart office</Heading>
+      <Box display={{ base: "none" }}>
+        <Heading as="h1">Immersive smart office</Heading>
+      </Box>
 
       {alert ? (
         <div className={alert.variant}>
@@ -43,9 +45,13 @@ export function App() {
           <Text>{alert.description}</Text>
         </div>
       ) : null}
+
       <div>
-        <Heading as="h2">Music</Heading>
-        <Text>{isPlaying ? "Now playing" : "Up next"}:</Text>
+        <Box display={{ base: "none" }}>
+          <Heading as="h2">Music</Heading>
+          <Text>{isPlaying ? "Now playing" : "Up next"}:</Text>
+        </Box>
+
         <div>
           <Image
             src={music.currentTrack.albumArt}
@@ -57,6 +63,7 @@ export function App() {
             <Text textStyle="sm">from {music.currentTrack.album}</Text>
           </div>
         </div>
+
         <div>
           <Button onClick={() => doAction("prevTrack")}>
             <IoPlayBackOutline />
@@ -86,6 +93,7 @@ export function App() {
         <Button onClick={() => setAreGatesOpen(!areGatesOpen)}>
           Open Gates
         </Button>
+
         <div>
           <label htmlFor="latchTime">Latch open for:</label>
           <select id="latchTime" value={latchTime} onChange={handleLatchChange}>
@@ -107,10 +115,14 @@ export function App() {
                 {room.lights.map((light) => (
                   <li key={light.id}>
                     <Heading as="h4">{light.name}</Heading>
-                    <Text>
-                      Reachable?: {light.state.reachable ? "Yes" : "No"}
-                    </Text>
-                    <Text>Brightness: {light.state.brightness}%</Text>
+
+                    <Box display={{ base: "none" }}>
+                      <Text>
+                        Reachable?: {light.state.reachable ? "Yes" : "No"}
+                      </Text>
+                      <Text>Brightness: {light.state.brightness}%</Text>
+                    </Box>
+
                     <Button
                       disabled={!light.state.reachable}
                       onClick={() =>
