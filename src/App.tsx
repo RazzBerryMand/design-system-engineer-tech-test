@@ -1,4 +1,4 @@
-import { Heading, Text, Image, Badge, Box } from "@chakra-ui/react";
+import { Heading, Text, Image, Badge, Box, Group } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/alert";
 import { useState } from "react";
@@ -77,7 +77,7 @@ export function App() {
           </div>
         </div>
 
-        <div>
+        <Group>
           <Button onClick={() => doAction("prevTrack")}>
             <IoPlayBackOutline />
           </Button>
@@ -87,7 +87,7 @@ export function App() {
           <Button onClick={() => doAction("nextTrack")}>
             <IoPlayForwardOutline />
           </Button>
-        </div>
+        </Group>
       </div>
 
       <div>
