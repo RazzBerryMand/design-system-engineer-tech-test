@@ -1,3 +1,4 @@
+import { Heading } from "@chakra-ui/react";
 import { useState } from "react";
 import {
   IoPlayOutline,
@@ -5,8 +6,8 @@ import {
   IoPlayBackOutline,
   IoPlayForwardOutline,
   IoInformationOutline,
-  IoWarningOutline,
-  IoAlertCircleOutline,
+  // IoWarningOutline,
+  // IoAlertCircleOutline,
 } from "react-icons/io5";
 import { useDummyData } from "./hooks/useDummyData";
 import "./App.css";
@@ -29,19 +30,20 @@ export function App() {
 
   return (
     <div>
-      <h1>Immersive smart office</h1>
+      <Heading as="h1">Immersive smart office</Heading>
+
       {alert ? (
         <div className={alert.variant}>
           <div>
             <IoInformationOutline />
             {/* or IoWarningOutline or IoAlertCircleOutline based on alert.variant */}
-            <h2>{alert.title}</h2>
+            <Heading as="h2">{alert.title}</Heading>
           </div>
           <p>{alert.description}</p>
         </div>
       ) : null}
       <div>
-        <h2>Music</h2>
+        <Heading as="h2">Music</Heading>
         <p>{isPlaying ? "Now playing" : "Up next"}:</p>
         <div>
           <img src={music.currentTrack.albumArt} alt="" />
@@ -67,7 +69,7 @@ export function App() {
       <hr />
 
       <div>
-        <h2>Gates</h2>
+        <Heading as="h2">Gates</Heading>
         {areGatesOpen ? (
           <span>Gates are open</span>
         ) : (
@@ -90,15 +92,15 @@ export function App() {
       <hr />
 
       <div>
-        <h2>Lights</h2>
+        <Heading as="h2">Lights</Heading>
         <ul>
           {rooms.map((room) => (
             <li key={room.name}>
-              <h3>{room.name}</h3>
+              <Heading as="h3">{room.name}</Heading>
               <ul>
                 {room.lights.map((light) => (
                   <li key={light.id}>
-                    <h4>{light.name}</h4>
+                    <Heading as="h4">{light.name}</Heading>
                     <p>Reachable?: {light.state.reachable ? "Yes" : "No"}</p>
                     <p>Brightness: {light.state.brightness}%</p>
                     <button
