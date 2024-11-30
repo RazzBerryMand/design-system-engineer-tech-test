@@ -1,4 +1,5 @@
 import { Heading, Text, Image, Badge } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button"
 import { useState } from "react";
 import {
   IoPlayOutline,
@@ -57,15 +58,15 @@ export function App() {
           </div>
         </div>
         <div>
-          <button onClick={() => doAction("prevTrack")}>
+          <Button onClick={() => doAction("prevTrack")}>
             <IoPlayBackOutline />
-          </button>
-          <button onClick={() => doAction("togglePlayState")}>
+          </Button>
+          <Button onClick={() => doAction("togglePlayState")}>
             {isPlaying ? <IoPauseOutline /> : <IoPlayOutline />}
-          </button>
-          <button onClick={() => doAction("nextTrack")}>
+          </Button>
+          <Button onClick={() => doAction("nextTrack")}>
             <IoPlayForwardOutline />
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -84,9 +85,9 @@ export function App() {
           </Badge>
         )}
 
-        <button onClick={() => setAreGatesOpen(!areGatesOpen)}>
+        <Button onClick={() => setAreGatesOpen(!areGatesOpen)}>
           Open Gates
-        </button>
+        </Button>
         <div>
           <label htmlFor="latchTime">Latch open for:</label>
           <select id="latchTime" value={latchTime} onChange={handleLatchChange}>
@@ -114,7 +115,7 @@ export function App() {
                       Reachable?: {light.state.reachable ? "Yes" : "No"}
                     </Text>
                     <Text>Brightness: {light.state.brightness}%</Text>
-                    <button
+                    <Button
                       disabled={!light.state.reachable}
                       onClick={() =>
                         doAction(
@@ -123,7 +124,7 @@ export function App() {
                       }
                     >
                       {light.state.on ? "On" : "Off"}
-                    </button>
+                    </Button>
                   </li>
                 ))}
               </ul>
