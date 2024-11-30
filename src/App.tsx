@@ -1,4 +1,4 @@
-import { Heading } from "@chakra-ui/react";
+import { Heading, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import {
   IoPlayOutline,
@@ -39,18 +39,18 @@ export function App() {
             {/* or IoWarningOutline or IoAlertCircleOutline based on alert.variant */}
             <Heading as="h2">{alert.title}</Heading>
           </div>
-          <p>{alert.description}</p>
+          <Text>{alert.description}</Text>
         </div>
       ) : null}
       <div>
         <Heading as="h2">Music</Heading>
-        <p>{isPlaying ? "Now playing" : "Up next"}:</p>
+        <Text>{isPlaying ? "Now playing" : "Up next"}:</Text>
         <div>
           <img src={music.currentTrack.albumArt} alt="" />
           <div>
-            <p>{music.currentTrack.title}</p>
-            <p>by {music.currentTrack.artist}</p>
-            <p>from {music.currentTrack.album}</p>
+            <Text textStyle="lg">{music.currentTrack.title}</Text>
+            <Text textStyle="md">by {music.currentTrack.artist}</Text>
+            <Text textStyle="sm">from {music.currentTrack.album}</Text>
           </div>
         </div>
         <div>
@@ -101,8 +101,8 @@ export function App() {
                 {room.lights.map((light) => (
                   <li key={light.id}>
                     <Heading as="h4">{light.name}</Heading>
-                    <p>Reachable?: {light.state.reachable ? "Yes" : "No"}</p>
-                    <p>Brightness: {light.state.brightness}%</p>
+                    <Text>Reachable?: {light.state.reachable ? "Yes" : "No"}</Text>
+                    <Text>Brightness: {light.state.brightness}%</Text>
                     <button
                       disabled={!light.state.reachable}
                       onClick={() =>
