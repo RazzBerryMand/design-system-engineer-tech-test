@@ -111,7 +111,7 @@ export function App() {
             alt={`Album art for ${music.currentTrack.album}`}
           />
 
-          <Card.Body gap="2">
+          <Card.Body>
             <VisuallyHidden>
               <Card.Title>Music</Card.Title>
               <Text>{isPlaying ? "Now playing" : "Up next"}:</Text>
@@ -124,7 +124,7 @@ export function App() {
             </Stack>
           </Card.Body>
 
-          <Card.Footer gap="2">
+          <Card.Footer>
             <Group w="full" grow>
               <IconButton
                 aria-label="Skip back"
@@ -149,7 +149,7 @@ export function App() {
         </Card.Root>
 
         <Card.Root>
-          <Card.Header gap="2">
+          <Card.Header>
             <Flex justifyContent="space-between">
               <Card.Title>Gates</Card.Title>
               <Badge
@@ -162,7 +162,7 @@ export function App() {
             </Flex>
           </Card.Header>
 
-          <Card.Body gap="2">
+          <Card.Body>
             {areGatesOpen ? (
               <Alert
                 status="error"
@@ -191,7 +191,7 @@ export function App() {
             )}
           </Card.Body>
 
-          <Card.Footer gap="2">
+          <Card.Footer>
             <Button
               aria-label={areGatesOpen ? "Close" : "Open"}
               w="full"
@@ -203,17 +203,17 @@ export function App() {
         </Card.Root>
 
         <Card.Root>
-          <Card.Body gap="2">
+          <Card.Header>
             <Card.Title>Lights</Card.Title>
-          </Card.Body>
+          </Card.Header>
 
-          <Card.Footer gap="2">
+          <Card.Body>
             <List.Root variant="plain">
-              <Flex gap="4" wrap="wrap">
+              <Group w="full" wrap="wrap" grow>
                 {rooms.map((room) => (
                   <List.Item key={room.name}>
                     <DialogRoot
-                      size="cover"
+                      size="xs"
                       placement="center"
                       motionPreset="slide-in-bottom"
                     >
@@ -223,10 +223,19 @@ export function App() {
                             aria-label={`${room.name} light settings`}
                             variant="outline"
                             size="lg"
+                            px="8"
+                            py="10"
+                            mx="4"
                           >
                             <IoSettingsSharp />
                           </IconButton>
-                          <Heading as="h3" textStyle="xs">
+                          <Heading
+                            as="h3"
+                            textStyle="xs"
+                            fontWeight="normal"
+                            textAlign="center"
+                            mb="6"
+                          >
                             {room.name}
                           </Heading>
                         </VStack>
@@ -238,7 +247,7 @@ export function App() {
                         </DialogHeader>
                         <DialogBody>
                           <List.Root variant="plain">
-                            <Flex wrap="nowrap" direction="column" gap="4">
+                            <Group w="full" wrap="wrap" grow>
                               {room.lights.map((light) => (
                                 <List.Item key={light.id}>
                                   <VisuallyHidden>
@@ -256,6 +265,9 @@ export function App() {
                                       aria-label={`${light.name} toggle`}
                                       variant="outline"
                                       size="lg"
+                                      px="8"
+                                      py="10"
+                                      mx="4"
                                       disabled={!light.state.reachable}
                                       onClick={() =>
                                         doAction(
@@ -275,22 +287,28 @@ export function App() {
                                         <IoAlertCircleOutline />
                                       )}
                                     </IconButton>
-                                    <Heading as="h3" textStyle="xs">
+                                    <Heading
+                                      as="h3"
+                                      textStyle="xs"
+                                      fontWeight="normal"
+                                      textAlign="center"
+                                      mb="6"
+                                    >
                                       {light.name}
                                     </Heading>
                                   </VStack>
                                 </List.Item>
                               ))}
-                            </Flex>
+                            </Group>
                           </List.Root>
                         </DialogBody>
                       </DialogContent>
                     </DialogRoot>
                   </List.Item>
                 ))}
-              </Flex>
+              </Group>
             </List.Root>
-          </Card.Footer>
+          </Card.Body>
         </Card.Root>
       </Stack>
     </Container>
