@@ -13,6 +13,8 @@ import {
   VisuallyHidden,
   Spinner,
   Center,
+  IconButton,
+  VStack,
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/alert";
@@ -124,15 +126,24 @@ export function App() {
 
           <Card.Footer gap="2">
             <Group w="full" grow>
-              <Button onClick={() => doAction("prevTrack")}>
+              <IconButton
+                aria-label="Skip back"
+                onClick={() => doAction("prevTrack")}
+              >
                 <IoPlaySkipBackSharp />
-              </Button>
-              <Button onClick={() => doAction("togglePlayState")}>
+              </IconButton>
+              <IconButton
+                aria-label={isPlaying ? "Pause" : "Play"}
+                onClick={() => doAction("togglePlayState")}
+              >
                 {isPlaying ? <IoPauseSharp /> : <IoPlaySharp />}
-              </Button>
-              <Button onClick={() => doAction("nextTrack")}>
+              </IconButton>
+              <IconButton
+                aria-label="Skip forward"
+                onClick={() => doAction("nextTrack")}
+              >
                 <IoPlaySkipForwardSharp />
-              </Button>
+              </IconButton>
             </Group>
           </Card.Footer>
         </Card.Root>
@@ -181,7 +192,11 @@ export function App() {
           </Card.Body>
 
           <Card.Footer gap="2">
-            <Button w="full" onClick={() => setAreGatesOpen(!areGatesOpen)}>
+            <Button
+              aria-label={areGatesOpen ? "Close" : "Open"}
+              w="full"
+              onClick={() => setAreGatesOpen(!areGatesOpen)}
+            >
               {areGatesOpen ? "Close" : "Open"}
             </Button>
           </Card.Footer>
@@ -203,10 +218,18 @@ export function App() {
                       motionPreset="slide-in-bottom"
                     >
                       <DialogTrigger asChild>
-                        <Button variant="outline" size="sm">
-                          <Heading as="h3">{room.name}</Heading>
-                          <IoSettingsSharp />
-                        </Button>
+                        <VStack>
+                          <IconButton
+                            aria-label={`${room.name} light settings`}
+                            variant="outline"
+                            size="lg"
+                          >
+                            <IoSettingsSharp />
+                          </IconButton>
+                          <Heading as="h3" textStyle="xs">
+                            {room.name}
+                          </Heading>
+                        </VStack>
                       </DialogTrigger>
                       <DialogContent>
                         <DialogHeader>
@@ -228,28 +251,34 @@ export function App() {
                                     </Text>
                                   </VisuallyHidden>
 
-                                  <Button
-                                    variant="outline"
-                                    disabled={!light.state.reachable}
-                                    onClick={() =>
-                                      doAction(
-                                        `turn ${light.name} ${
-                                          light.state.on ? "off" : "on"
-                                        }`
-                                      )
-                                    }
-                                  >
-                                    <Heading as="h4">{light.name}</Heading>
-                                    {light.state.reachable &&
-                                      light.state.on && <IoBulb />}
+                                  <VStack>
+                                    <IconButton
+                                      aria-label={`${light.name} toggle`}
+                                      variant="outline"
+                                      size="lg"
+                                      disabled={!light.state.reachable}
+                                      onClick={() =>
+                                        doAction(
+                                          `turn ${light.name} ${
+                                            light.state.on ? "off" : "on"
+                                          }`
+                                        )
+                                      }
+                                    >
+                                      {light.state.reachable &&
+                                        light.state.on && <IoBulb />}
 
-                                    {light.state.reachable &&
-                                      !light.state.on && <IoBulbOutline />}
+                                      {light.state.reachable &&
+                                        !light.state.on && <IoBulbOutline />}
 
-                                    {!light.state.reachable && (
-                                      <IoAlertCircleOutline />
-                                    )}
-                                  </Button>
+                                      {!light.state.reachable && (
+                                        <IoAlertCircleOutline />
+                                      )}
+                                    </IconButton>
+                                    <Heading as="h3" textStyle="xs">
+                                      {light.name}
+                                    </Heading>
+                                  </VStack>
                                 </List.Item>
                               ))}
                             </Flex>
