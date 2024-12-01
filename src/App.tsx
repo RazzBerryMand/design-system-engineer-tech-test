@@ -11,8 +11,6 @@ import {
   Card,
   createListCollection,
   VisuallyHidden,
-  Spinner,
-  Center,
   IconButton,
   VStack,
 } from "@chakra-ui/react";
@@ -45,6 +43,7 @@ import {
   IoWarning,
   IoAlertCircle,
   IoAlertCircleOutline,
+  IoWifiSharp,
   IoBulbOutline,
   IoBulb,
   IoSettingsSharp,
@@ -71,6 +70,8 @@ export function App() {
         return <IoWarning />;
       case "error":
         return <IoAlertCircle />;
+      case "success":
+        return <IoWifiSharp />;
       default:
         return undefined;
     }
@@ -99,9 +100,13 @@ export function App() {
               <Text>{alert?.description}</Text>
             </Alert>
           ) : (
-            <Center h="full" p="4">
-              <Spinner size="xl" />
-            </Center>
+            <Alert
+              status="success"
+              title="Connection is stable"
+              icon={renderAlertIcon("success")}
+            >
+              <Text>Music is currently {music.playState}</Text>
+            </Alert>
           )}
         </Card.Root>
 
