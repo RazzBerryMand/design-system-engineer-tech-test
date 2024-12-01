@@ -24,6 +24,15 @@ import {
   SelectTrigger,
   SelectValueText,
 } from "@/components/ui/select";
+import {
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogRoot,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { useState } from "react";
 import {
   IoPlaySharp,
@@ -36,6 +45,7 @@ import {
   IoAlertCircleOutline,
   IoBulbOutline,
   IoBulb,
+  IoSettingsSharp,
 } from "react-icons/io5";
 import { useDummyData } from "./hooks/useDummyData";
 
@@ -184,55 +194,69 @@ export function App() {
 
           <Card.Footer gap="2">
             <List.Root variant="plain">
-              <Flex width="100%" overflowX="auto" wrap="nowrap" gap="4">
+              <Flex gap="4" wrap="wrap">
                 {rooms.map((room) => (
                   <List.Item key={room.name}>
-                    <Flex direction="column" gap="4">
-                      <Heading as="h3">{room.name}</Heading>
+                    <DialogRoot
+                      size="cover"
+                      placement="center"
+                      motionPreset="slide-in-bottom"
+                    >
+                      <DialogTrigger asChild>
+                        <Button variant="outline" size="sm">
+                          <Heading as="h3">{room.name}</Heading>
+                          <IoSettingsSharp />
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>{room.name}</DialogTitle>
+                          <DialogCloseTrigger />
+                        </DialogHeader>
+                        <DialogBody>
+                          <List.Root variant="plain">
+                            <Flex wrap="nowrap" direction="column" gap="4">
+                              {room.lights.map((light) => (
+                                <List.Item key={light.id}>
+                                  <VisuallyHidden>
+                                    <Text>
+                                      Reachable?:{" "}
+                                      {light.state.reachable ? "Yes" : "No"}
+                                    </Text>
+                                    <Text>
+                                      Brightness: {light.state.brightness}%
+                                    </Text>
+                                  </VisuallyHidden>
 
-                      <List.Root variant="plain">
-                        <Flex wrap="nowrap" direction="column" gap="4">
-                          {room.lights.map((light) => (
-                            <List.Item key={light.id}>
-                              <VisuallyHidden>
-                                <Text>
-                                  Reachable?:{" "}
-                                  {light.state.reachable ? "Yes" : "No"}
-                                </Text>
-                                <Text>
-                                  Brightness: {light.state.brightness}%
-                                </Text>
-                              </VisuallyHidden>
+                                  <Button
+                                    variant="outline"
+                                    disabled={!light.state.reachable}
+                                    onClick={() =>
+                                      doAction(
+                                        `turn ${light.name} ${
+                                          light.state.on ? "off" : "on"
+                                        }`
+                                      )
+                                    }
+                                  >
+                                    <Heading as="h4">{light.name}</Heading>
+                                    {light.state.reachable &&
+                                      light.state.on && <IoBulb />}
 
-                              <Button
-                                variant="outline"
-                                disabled={!light.state.reachable}
-                                onClick={() =>
-                                  doAction(
-                                    `turn ${light.name} ${
-                                      light.state.on ? "off" : "on"
-                                    }`
-                                  )
-                                }
-                              >
-                                <Heading as="h4">{light.name}</Heading>
-                                {light.state.reachable && light.state.on && (
-                                  <IoBulb />
-                                )}
+                                    {light.state.reachable &&
+                                      !light.state.on && <IoBulbOutline />}
 
-                                {light.state.reachable && !light.state.on && (
-                                  <IoBulbOutline />
-                                )}
-
-                                {!light.state.reachable && (
-                                  <IoAlertCircleOutline />
-                                )}
-                              </Button>
-                            </List.Item>
-                          ))}
-                        </Flex>
-                      </List.Root>
-                    </Flex>
+                                    {!light.state.reachable && (
+                                      <IoAlertCircleOutline />
+                                    )}
+                                  </Button>
+                                </List.Item>
+                              ))}
+                            </Flex>
+                          </List.Root>
+                        </DialogBody>
+                      </DialogContent>
+                    </DialogRoot>
                   </List.Item>
                 ))}
               </Flex>
