@@ -209,7 +209,7 @@ export function App() {
 
           <Card.Body>
             <List.Root variant="plain">
-              <Group w="full" wrap="wrap" grow>
+              <Group w="full" wrap="wrap" grow justifyContent="center">
                 {rooms.map((room) => (
                   <List.Item key={room.name}>
                     <DialogRoot
@@ -247,7 +247,12 @@ export function App() {
                         </DialogHeader>
                         <DialogBody>
                           <List.Root variant="plain">
-                            <Group w="full" wrap="wrap" grow>
+                            <Group
+                              w="full"
+                              wrap="wrap"
+                              grow
+                              justifyContent="center"
+                            >
                               {room.lights.map((light) => (
                                 <List.Item key={light.id}>
                                   <VisuallyHidden>
@@ -267,7 +272,6 @@ export function App() {
                                       size="lg"
                                       px="8"
                                       py="10"
-                                      mx="4"
                                       disabled={!light.state.reachable}
                                       onClick={() =>
                                         doAction(
