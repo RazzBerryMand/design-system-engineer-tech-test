@@ -226,7 +226,7 @@ export function App() {
                       motionPreset="slide-in-bottom"
                     >
                       <DialogTrigger asChild>
-                        <VStack>
+                        <VStack mb="6">
                           <IconButton
                             aria-label={`${room.name} light settings`}
                             variant="outline"
@@ -242,7 +242,6 @@ export function App() {
                             textStyle="xs"
                             fontWeight="normal"
                             textAlign="center"
-                            mb="6"
                           >
                             {room.name}
                           </Heading>
@@ -263,18 +262,10 @@ export function App() {
                             >
                               {room.lights.map((light) => (
                                 <List.Item key={light.id}>
-                                  <VisuallyHidden>
-                                    <Text>
-                                      Reachable?:{" "}
-                                      {light.state.reachable ? "Yes" : "No"}
-                                    </Text>
-                                    <Text>
-                                      Brightness: {light.state.brightness}%
-                                    </Text>
-                                  </VisuallyHidden>
-
-                                  <VStack>
+                                  <VStack mb="6">
                                     <IconButton
+                                      w="xs"
+                                      py="8"
                                       aria-label={`${light.name} is ${
                                         light.state.on ? "on" : "off"
                                       }`}
@@ -282,8 +273,6 @@ export function App() {
                                         light.state.on ? "solid" : "outline"
                                       }
                                       size="lg"
-                                      px="8"
-                                      py="10"
                                       disabled={!light.state.reachable}
                                       onClick={() =>
                                         doAction(
@@ -295,18 +284,37 @@ export function App() {
                                     >
                                       {light.state.reachable &&
                                         light.state.on && (
-                                          <IoBulb
-                                            style={{
-                                              transform: "rotate(180deg)",
-                                            }}
-                                          />
+                                          <>
+                                            <Text textStyle="xs">
+                                              Brightness:{" "}
+                                              {light.state.brightness}%{" "}
+                                            </Text>
+                                            <IoBulb
+                                              style={{
+                                                transform: "rotate(180deg)",
+                                              }}
+                                            />
+                                          </>
                                         )}
 
                                       {light.state.reachable &&
-                                        !light.state.on && <IoBulbOutline />}
+                                        !light.state.on && (
+                                          <>
+                                            <Text textStyle="xs">
+                                              Brightness:{" "}
+                                              {light.state.brightness}%{" "}
+                                            </Text>
+                                            <IoBulbOutline />
+                                          </>
+                                        )}
 
                                       {!light.state.reachable && (
-                                        <IoAlertCircleOutline />
+                                        <>
+                                          <Text textStyle="xs">
+                                            TOO FAR AWAY
+                                          </Text>
+                                          <IoAlertCircleOutline />
+                                        </>
                                       )}
                                     </IconButton>
                                     <Heading
@@ -314,7 +322,6 @@ export function App() {
                                       textStyle="xs"
                                       fontWeight="normal"
                                       textAlign="center"
-                                      mb="6"
                                     >
                                       {light.name}
                                     </Heading>
