@@ -19,7 +19,7 @@ Chakra UI offered several advantages:
 - Built-in Accessibility: Chakra UI emphasizes accessibility by default, which aligns with the project’s focus on making the app usable for all users.
 - Responsive Design: Chakra makes building responsive UIs straightforward using its built-in breakpoints and layout components.
 
-### Commit Strategy: Micro Commits with Gitmoji
+### Commit Strategy
 
 I committed my work using a micro-commit approach, where each commit represents a small, logical change. This was done to maintain clarity and traceability in the development process. For consistency, I used Gitmoji ([check it out here](https://gitmoji.dev/)) to provide a visual representation of each commit type, making it easier to understand the nature of the changes at a glance.
 
