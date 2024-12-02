@@ -10,7 +10,9 @@ My first step was to conduct a UI inventory to understand the structure of the a
 
 ### Choice of Design System
 
-I chose to style the app using Chakra UI ([check it out here](https://www.chakra-ui.com/) ), a component library I had not worked with before. I wanted to demonstrate my ability to quickly learn new tools and apply them effectively to meet project requirements. Chakra UI offered several advantages:
+I chose to style the app using Chakra UI ([check it out here](https://www.chakra-ui.com/)), a component library I had not worked with before. I wanted to demonstrate my ability to quickly learn new tools and apply them effectively to meet project requirements.
+
+Chakra UI offered several advantages:
 
 - Comprehensive Component Library: Chakra UI provided all the components I needed based on my UI inventory (e.g., cards, buttons, form elements).
 - Customizable Tokens: Chakra's design tokens (such as colors, typography, and spacing) were easy to configure and adapt to the needs of the app.
@@ -19,7 +21,7 @@ I chose to style the app using Chakra UI ([check it out here](https://www.chakra
 
 ### Commit Strategy: Micro Commits with Gitmoji
 
-I committed my work using a micro-commit approach, where each commit represents a small, logical change. This was done to maintain clarity and traceability in the development process. For consistency, I used Gitmoji ([check it out here](https://gitmoji.dev/) ) to provide a visual representation of each commit type, making it easier to understand the nature of the changes at a glance.
+I committed my work using a micro-commit approach, where each commit represents a small, logical change. This was done to maintain clarity and traceability in the development process. For consistency, I used Gitmoji ([check it out here](https://gitmoji.dev/)) to provide a visual representation of each commit type, making it easier to understand the nature of the changes at a glance.
 
 ## How to Run the Project
 
@@ -35,6 +37,6 @@ npm run dev
 
 ## If Given More Time
 
-- I would extract the card components from App.tsx to improve modularity and maintainability.
+- I would extract the card components from `App.tsx` to improve modularity and maintainability.
 - Implement tests using React Testing Library to ensure the app functions as expected.
 - Customize the theme tokens and potentially introduce a toggle between light and dark modes for improved user customization.
