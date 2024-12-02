@@ -33,10 +33,12 @@ export const dummyMusicData: IDummyMusicData = {
 };
 
 function getRandomLightState(): ILight["state"] {
+  const on = Math.random() < 0.5;
+  
   return {
     reachable: Math.random() < 0.5,
-    on: Math.random() < 0.5,
-    brightness: Math.floor(Math.random() * 100),
+    on,
+    brightness: on ? Math.floor(Math.random() * 100) : 0,
   };
 }
 
