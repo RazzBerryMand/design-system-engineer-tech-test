@@ -48,7 +48,7 @@ import {
   IoBulb,
   IoSettingsSharp,
 } from "react-icons/io5";
-import { useDummyData } from "./hooks/useDummyData";
+import { ILight, useDummyData } from "./hooks/useDummyData";
 
 export function App() {
   const { music, rooms, alert, gates } = useDummyData();
@@ -75,6 +75,32 @@ export function App() {
       default:
         return undefined;
     }
+  };
+
+  const renderLightButtonContent = (light: ILight) => {
+    return (
+      <>
+        {light.state.reachable ? (
+          <>
+            <Text textStyle="xs">Brightness: {light.state.brightness}%</Text>
+            {light.state.on ? (
+              <IoBulb
+                style={{
+                  transform: "rotate(180deg)",
+                }}
+              />
+            ) : (
+              <IoBulbOutline />
+            )}
+          </>
+        ) : (
+          <>
+            <Text textStyle="xs">TOO FAR AWAY</Text>
+            <IoAlertCircleOutline />
+          </>
+        )}
+      </>
+    );
   };
 
   const mainGateLatchTimes = gates[0].latchTimes;
@@ -282,40 +308,7 @@ export function App() {
                                         )
                                       }
                                     >
-                                      {light.state.reachable &&
-                                        light.state.on && (
-                                          <>
-                                            <Text textStyle="xs">
-                                              Brightness:{" "}
-                                              {light.state.brightness}%{" "}
-                                            </Text>
-                                            <IoBulb
-                                              style={{
-                                                transform: "rotate(180deg)",
-                                              }}
-                                            />
-                                          </>
-                                        )}
-
-                                      {light.state.reachable &&
-                                        !light.state.on && (
-                                          <>
-                                            <Text textStyle="xs">
-                                              Brightness:{" "}
-                                              {light.state.brightness}%{" "}
-                                            </Text>
-                                            <IoBulbOutline />
-                                          </>
-                                        )}
-
-                                      {!light.state.reachable && (
-                                        <>
-                                          <Text textStyle="xs">
-                                            TOO FAR AWAY
-                                          </Text>
-                                          <IoAlertCircleOutline />
-                                        </>
-                                      )}
+                                      {renderLightButtonContent(light)}
                                     </IconButton>
                                     <Heading
                                       as="h3"
