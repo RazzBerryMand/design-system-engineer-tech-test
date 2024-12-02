@@ -119,7 +119,6 @@ export function App() {
           <Card.Body>
             <VisuallyHidden>
               <Card.Title>Music</Card.Title>
-              <Text>{isPlaying ? "Now playing" : "Up next"}:</Text>
             </VisuallyHidden>
 
             <Stack>
@@ -132,18 +131,21 @@ export function App() {
           <Card.Footer>
             <Group w="full" grow>
               <IconButton
+                variant="subtle"
                 aria-label="Skip back"
                 onClick={() => doAction("prevTrack")}
               >
                 <IoPlaySkipBackSharp />
               </IconButton>
               <IconButton
+                variant="solid"
                 aria-label={isPlaying ? "Pause" : "Play"}
                 onClick={() => doAction("togglePlayState")}
               >
                 {isPlaying ? <IoPauseSharp /> : <IoPlaySharp />}
               </IconButton>
               <IconButton
+                variant="subtle"
                 aria-label="Skip forward"
                 onClick={() => doAction("nextTrack")}
               >
@@ -199,6 +201,7 @@ export function App() {
           <Card.Footer>
             <Button
               aria-label={areGatesOpen ? "Close" : "Open"}
+              variant={areGatesOpen ? "subtle" : "solid"}
               w="full"
               onClick={() => setAreGatesOpen(!areGatesOpen)}
             >
@@ -272,8 +275,12 @@ export function App() {
 
                                   <VStack>
                                     <IconButton
-                                      aria-label={`${light.name} toggle`}
-                                      variant="outline"
+                                      aria-label={`${light.name} is ${
+                                        light.state.on ? "on" : "off"
+                                      }`}
+                                      variant={
+                                        light.state.on ? "solid" : "outline"
+                                      }
                                       size="lg"
                                       px="8"
                                       py="10"
@@ -287,7 +294,13 @@ export function App() {
                                       }
                                     >
                                       {light.state.reachable &&
-                                        light.state.on && <IoBulb />}
+                                        light.state.on && (
+                                          <IoBulb
+                                            style={{
+                                              transform: "rotate(180deg)",
+                                            }}
+                                          />
+                                        )}
 
                                       {light.state.reachable &&
                                         !light.state.on && <IoBulbOutline />}
