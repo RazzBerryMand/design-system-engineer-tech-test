@@ -168,9 +168,9 @@ export function generateDummyGateData(): IGate[] {
     {
       name: "Main Gate",
       latchTimes: [
-        { label: "10 mins", value: "10" },
-        { label: "20 mins", value: "20" },
-        { label: "1 hour", value: "60" },
+        { label: "Open for 10 mins", value: "10" },
+        { label: "Open for 20 mins", value: "20" },
+        { label: "Open for 1 hour", value: "60" },
       ],
     },
   ];
