@@ -84,13 +84,13 @@ export function App() {
           <>
             <Text textStyle="xs">Brightness: {light.state.brightness}%</Text>
             {light.state.on ? (
+              <IoBulbOutline />
+            ) : (
               <IoBulb
                 style={{
                   transform: "rotate(180deg)",
                 }}
               />
-            ) : (
-              <IoBulbOutline />
             )}
           </>
         ) : (
@@ -296,7 +296,7 @@ export function App() {
                                         light.state.on ? "on" : "off"
                                       }`}
                                       variant={
-                                        light.state.on ? "solid" : "outline"
+                                        light.state.on ? "outline" : "solid"
                                       }
                                       size="lg"
                                       disabled={!light.state.reachable}
